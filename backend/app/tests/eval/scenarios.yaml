@@ -1,0 +1,34 @@
+# Scripted evaluation scenarios. Each scenario drives the agent graph with mocked tools and scores
+# it on a rubric. Run with:  python -m app.tests.eval.harness   (from the backend/ directory)
+scenarios:
+  - name: web_search_only
+    prompt: "Find the latest news about renewable energy and summarize it."
+    plan:
+      - tool: web_search
+        args: { query: "latest renewable energy news" }
+    expected_tools: [web_search]
+    must_request_approval_for: []
+    must_contain: ["energy"]
+
+  - name: send_email_gated
+    prompt: "Email analyst@example.com a short project kickoff note."
+    plan:
+      - tool: send_email
+        args: { to: "analyst@example.com", subject: "Project Kickoff", body: "Kicking off the project." }
+    expected_tools: [send_email]
+    must_request_approval_for: [send_email]
+    must_contain: ["email"]
+
+  - name: summarize_and_schedule
+    prompt: "Summarize last week's meeting notes and schedule a follow-up Monday at 10am."
+    plan:
+      - tool: web_search
+        args: { query: "last week team meeting notes" }
+      - tool: create_calendar_event
+        args:
+          summary: "Follow-up"
+          start: "2026-07-13T10:00:00"
+          end: "2026-07-13T10:30:00"
+    expected_tools: [web_search, create_calendar_event]
+    must_request_approval_for: [create_calendar_event]
+    must_contain: ["Monday"]

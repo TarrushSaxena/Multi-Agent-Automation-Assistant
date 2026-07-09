@@ -1,0 +1,33 @@
+fastapi==0.115.0
+uvicorn[standard]
+pydantic==2.9.2
+pydantic-settings
+sqlalchemy[asyncio]==2.0.35
+asyncpg
+alembic
+slowapi
+python-dotenv
+python-multipart
+anyio
+
+# Agent core
+langgraph==0.2.76
+langgraph-checkpoint-postgres==2.0.25
+langchain-core==0.3.86
+langchain-groq==0.2.1
+langchain-openai==0.2.5
+psycopg[binary,pool]
+
+# Tools
+tavily-python
+sendgrid
+google-api-python-client
+google-auth
+google-auth-oauthlib
+
+# Tests
+pytest
+pytest-asyncio
+httpx
+aiosqlite
+pyyaml
